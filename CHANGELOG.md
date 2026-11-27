@@ -1,6 +1,12 @@
 # Changelog
 
 
+#### = 1.1.92-alpha (November 27, 2026) =
+
+* core: Tailwind CSS adaptation for the WordPress editor, compatible with older browsers.
+* core: Force the exclusion of third-party libraries from the generated WordPress editor view.
+
+
 #### = 1.1.90-alpha (November 25, 2026) =
 
 * core: Supports automatic generation of scripts for the native WordPress Gutenberg editor.

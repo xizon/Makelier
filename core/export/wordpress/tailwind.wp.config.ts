@@ -3,7 +3,17 @@ import path from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import cssnano from 'cssnano';
+import lite from 'cssnano-preset-lite';
+import postcssNesting from 'postcss-nesting';
+
+import {
+    colorMixFallback,
+} from '../../engines/css-compatibility/index.ts';
+
 import type { InlineConfig } from 'vite';
+
+const cssCompatibility = process.env.SYS_CSS_COMPATIBILITY !== 'false';
 
 export function createWordPressTailwindConfig(
     siteRoot: string,
@@ -44,12 +54,23 @@ export function createWordPressTailwindConfig(
             tailwindcss(),
         ],
 
+        css: {
+            postcss: {
+                plugins: [
+                    postcssNesting({ noIsPseudoSelector: true }),
+                    ...(cssCompatibility ? [colorMixFallback] : []),
+                    cssnano({ preset: lite }),
+                ],
+            },
+        },
+
         build: {
             outDir: outputDir,
             emptyOutDir: false,
             manifest: false,
             sourcemap: false,
             cssCodeSplit: false,
+            cssMinify: false,
 
             rollupOptions: {
                 input: entryPath,

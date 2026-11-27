@@ -1,13 +1,71 @@
+
 /**
- * External Adapter 
+ * External Adapter
  */
+import fs from 'node:fs';
 import path from 'node:path';
+
 import type { Plugin } from 'vite';
 import type { ExternalMap } from '../utils/types.ts';
 
+import { EXTERNAL_GLOBALS } from '../utils/const.ts';
 
 const IMPORT_RE =
     /(^|\n)([ \t]*)import\s+(\*\s+as\s+[\w$]+|\{[\s\S]*?\}|[\w$]+)\s+from\s+(['"])([^'"]+)\4[ \t]*;?/g;
+
+interface ExternalAdapterOptions {
+    autoExternal?: boolean;
+}
+
+/**
+ * Discover external dependencies from package.json.
+ */
+function discoverExternalDependencies(
+    siteRoot: string,
+): ExternalMap {
+    const packagePath = path.join(siteRoot, 'package.json');
+
+    if (!fs.existsSync(packagePath)) {
+        return {};
+    }
+
+    const packageJson = JSON.parse(
+        fs.readFileSync(packagePath, 'utf8'),
+    );
+
+    const dependencies = packageJson.dependencies ?? {};
+    const externals: ExternalMap = {};
+
+    for (const dependency of Object.keys(dependencies)) {
+        const globalName = EXTERNAL_GLOBALS[dependency];
+
+        if (globalName) {
+            externals[dependency] = globalName;
+        }
+    }
+
+    return externals;
+}
+
+/**
+ * Resolve external mappings.
+ *
+ * User-defined mappings override built-in mappings.
+ */
+function resolveExternals(
+    siteRoot: string,
+    externals: ExternalMap,
+    options: ExternalAdapterOptions,
+): ExternalMap {
+    const autoExternals = options.autoExternal
+        ? discoverExternalDependencies(siteRoot)
+        : {};
+
+    return {
+        ...autoExternals,
+        ...externals,
+    };
+}
 
 function createExternalBinding(
     clause: string,
@@ -80,9 +138,16 @@ function createExternalBinding(
 
 export function externalAdapterPlugin(
     siteRoot: string,
-    externals: ExternalMap
+    externals: ExternalMap = {},
+    options: ExternalAdapterOptions = {},
 ): Plugin {
     const resolvedSiteRoot = path.resolve(siteRoot);
+
+    const resolvedExternals = resolveExternals(
+        resolvedSiteRoot,
+        externals,
+        options,
+    );
 
     return {
         name: 'external-adapter',
@@ -113,7 +178,7 @@ export function externalAdapterPlugin(
             const output = code.replace(
                 IMPORT_RE,
                 (match, prefix, indent, clause, _quote, specifier) => {
-                    const globalName = externals[specifier];
+                    const globalName = resolvedExternals[specifier];
 
                     if (!globalName) {
                         return match;

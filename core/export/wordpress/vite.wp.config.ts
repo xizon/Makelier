@@ -15,6 +15,14 @@ import {
     autoMount,
 } from '../../plugins/auto-mount.ts';
 
+import {
+    externalAdapterPlugin,
+} from '../../plugins/external-adapter.ts';
+
+import {
+    createSiteContext,
+} from '../../site/site-context.ts';
+
 /*
 @Compatible with WordPress 7+
 
@@ -185,6 +193,12 @@ export function createWordPressViewViteConfig(
     componentName: string,
     siteRoot: string,
 ): InlineConfig {
+
+    const {
+        site,
+        externals,
+    } = createSiteContext(makelierRoot, path.basename(siteRoot));
+
     const wpRoot = path.join(
         siteRoot,
         '.makelier',
@@ -211,6 +225,10 @@ export function createWordPressViewViteConfig(
         root: makelierRoot,
 
         plugins: [
+            externalAdapterPlugin(site.root, externals, {
+                autoExternal: true,
+            }),
+
             autoMount({
                 componentsDir: 'src/components',
                 sitesDir: 'sites',

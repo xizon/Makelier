@@ -40,3 +40,56 @@ export const PLUGIN_NAME = 'makelier-blocks';
 export const PLUGIN_TITLE = 'Makelier Blocks';
 export const PLUGIN_TESTED_UP_TO = '7.1.5';
 export const PLUGIN_BLOCK_TITLE_PREFIX = 'Makelier ';
+
+
+
+export const EXTERNAL_GLOBALS: Record<string, string> = {
+    // React
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    'react-dom/client': 'ReactDOM',
+
+    // Vue
+    vue: 'Vue',
+
+    // Animation
+    gsap: 'gsap',
+    animejs: 'anime',
+    'lottie-web': 'lottie',
+    'motion': 'Motion',
+
+    // 3D / Graphics
+    three: 'THREE',
+    'pixi.js': 'PIXI',
+    babylonjs: 'BABYLON',
+    'matter-js': 'Matter',
+    '@react-three/fiber': 'ReactThreeFiber',
+    '@react-three/drei': 'Drei',
+
+    // UI
+    jquery: 'jQuery',
+    'swiper': 'Swiper',
+    'lucide': 'lucide',
+
+    // Visualization
+    'd3': 'd3',
+    'chart.js': 'Chart',
+    echarts: 'echarts',
+
+    // Utilities
+    dayjs: 'dayjs',
+    lodash: '_',
+    'lodash-es': '_',
+    axios: 'axios',
+
+    // Browser Utilities
+    prefixfree: 'StyleFix',
+    modernizr: 'Modernizr',
+
+    // Media
+    'video.js': 'videojs',
+
+    // Interaction
+    'jquery.waitforimages': 'waitForImages',
+    hammerjs: 'Hammer',
+};

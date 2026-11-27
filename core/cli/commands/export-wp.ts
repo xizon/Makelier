@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs';
 import { loadSite } from '../../site/load-site.ts';
 import { 
     runBuildWordPressEditor,
@@ -24,6 +25,20 @@ export async function runExportWP(sites: DiscoveredSite[]): Promise<void> {
         console.log(`\n[Makelier] Exporting WordPress blocks: ${item.name}`);
 
         const site = loadSite(item.root);
+
+        // STEP 0] Clean temporary WordPress entries
+        const wpEntryDir = path.join(
+            site.root,
+            '.makelier',
+            'wp',
+            '__entries__',
+        );
+
+        fs.rmSync(wpEntryDir, {
+            recursive: true,
+            force: true,
+        });
+
 
         // STEP 1] Generate block configs and entries
         generateBlockConfigs(site);

@@ -8,7 +8,7 @@
 
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.1.90 alpha-green?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/version-v1.1.92 alpha-green?style=flat-square" alt="Version" />
 </p>
 
 <p align="center">
