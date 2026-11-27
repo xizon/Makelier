@@ -55,7 +55,24 @@ export function generateEditorEntry(
     );
     const templateImport = toImportPath(entryDir, templatePath);
 
+    // if tailwind
+    /*
+    const tailwindPath = path.join(
+        siteRoot,
+        'src',
+        'styles',
+        'tailwind.css',
+    );
 
+    let tailwindImport = fs.existsSync(tailwindPath)
+        ? `import '${toImportPath(entryDir, tailwindPath)}';\n`
+        : '';
+    */
+
+    // !!!IMPORTANT:
+    // Use a unified entry point to avoid bundling Tailwind repeatedly for each component.
+    const tailwindImport = ''; 
+        
 
     const editorGeneratorPath = path.join(
         makelierRoot,
@@ -72,7 +89,8 @@ export function generateEditorEntry(
     const editorImport = toImportPath(entryDir, editorGeneratorPath);
     const typesImport = toImportPath(entryDir, typesPath);
 
-    return `import {
+    return `${tailwindImport}
+import {
     registerBlockType,
 } from '@wordpress/blocks';
 

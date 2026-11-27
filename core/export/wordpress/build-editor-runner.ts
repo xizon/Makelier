@@ -7,6 +7,10 @@ import {
     discoverViewEntries,
 } from './vite.wp.config.ts';
 
+import {
+    createWordPressTailwindConfig,
+} from './tailwind.wp.config';
+
 /*
 TEST:
 npm run build:wp-editor -- my-site
@@ -66,5 +70,28 @@ export async function runBuildWordPressView(
 
     console.log(
         `[Makelier] Built ${components.length} WordPress view script(s).`,
+    );
+}
+
+/**
+ * Build shared Tailwind CSS for WordPress.
+ */
+export async function runBuildWordPressTailwind(
+    siteRoot: string,
+    outputDir: string,
+): Promise<void> {
+    console.log(
+        '[Makelier] Building shared WordPress Tailwind CSS...',
+    );
+
+    await build(
+        createWordPressTailwindConfig(
+            siteRoot,
+            outputDir,
+        ),
+    );
+
+    console.log(
+        '[Makelier] Built shared WordPress Tailwind CSS.',
     );
 }

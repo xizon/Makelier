@@ -12,7 +12,6 @@ import {
  */
 
 
-
 const PLUGIN_PHP = `<?php
 /**
  * Plugin Name: ${PLUGIN_TITLE}
@@ -25,6 +24,26 @@ const PLUGIN_PHP = `<?php
 if (!defined('ABSPATH')) {
     exit;
 }
+
+/**
+ * Enqueue shared Tailwind CSS.
+ */
+function makelier_blocks_enqueue_styles(): void {
+    $css_path = plugin_dir_path(__FILE__) . 'assets/tailwind.css';
+
+    if (!file_exists($css_path)) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'makelier-tailwind',
+        plugin_dir_url(__FILE__) . 'assets/tailwind.css',
+        array(),
+        filemtime($css_path)
+    );
+}
+
+add_action('enqueue_block_assets', 'makelier_blocks_enqueue_styles');
 
 /**
  * Register all blocks.
@@ -81,6 +100,7 @@ return array(
 `;
 }
 
+
 function copyBlockFiles(
     sourceDir: string,
     outputDir: string,
@@ -111,7 +131,6 @@ function copyBlockFiles(
             { name: 'block.json', required: true },
             { name: 'config.json', required: false },
             { name: 'edit.js', required: true },
-            { name: 'style.css', required: false },
             { name: 'view.js', required: false },
         ];
 
@@ -134,6 +153,50 @@ function copyBlockFiles(
             );
         }
 
+        // Use the full stylesheet when available.
+
+        /*
+        // Otherwise, fall back to the original view stylesheet.
+
+        // !!!IMPORTANT:
+        // Use a unified entry point to avoid bundling Tailwind repeatedly for each component.
+        const fullStylePath = path.join(
+            blockSourceDir,
+            'style-full.css',
+        );
+
+        const viewStylePath = path.join(
+            blockSourceDir,
+            'component-pure.css',
+        );
+
+        
+        const styleSourcePath = fs.existsSync(fullStylePath)
+            ? fullStylePath
+            : viewStylePath;
+
+        if (fs.existsSync(styleSourcePath)) {
+            fs.copyFileSync(
+                styleSourcePath,
+                path.join(blockOutputDir, 'style.css'),
+            );
+        }
+        */
+
+        // Copy the block-specific stylesheet.
+        const styleSourcePath = path.join(
+            blockSourceDir,
+            'component-pure.css',
+        );
+
+        if (fs.existsSync(styleSourcePath)) {
+            fs.copyFileSync(
+                styleSourcePath,
+                path.join(blockOutputDir, 'component-pure.css'),
+            );
+        }
+
+
         // Generate WordPress editor asset dependencies.
         fs.writeFileSync(
             path.join(blockOutputDir, 'edit.asset.php'),
@@ -142,12 +205,11 @@ function copyBlockFiles(
         );
 
         count++;
-
-        count++;
     }
 
     return count;
 }
+
 
 export function exportWordPressPlugin(siteRoot: string): void {
     const sourceDir = path.join(siteRoot, '.makelier', 'wp');

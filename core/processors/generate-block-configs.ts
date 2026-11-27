@@ -75,7 +75,7 @@ function createBlockMetadata(
         category: 'widgets',
         editorScript: 'file:./edit.js',
         viewScript: 'file:./view.js',
-        style: 'file:./style.css',
+        style: 'file:./component-pure.css',
     };
 
     if (manifest.description?.trim()) {

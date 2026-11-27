@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath } from 'node:url';
 
 import type {
@@ -108,6 +109,7 @@ export function createWordPressViteConfig(
         configFile: false,
         root: makelierRoot,
         plugins: [
+            // tailwindcss(),
             injectComponentAttributePlugin(),
         ],
         build: {
@@ -115,6 +117,10 @@ export function createWordPressViteConfig(
             emptyOutDir: false,
             manifest: false,
             sourcemap: false,
+
+            // Prevent Vite from splitting CSS into multiple separate files; instead, 
+            // bundle all CSS dependencies of the current build entry into a single CSS file.
+            // cssCodeSplit: false,
 
             rollupOptions: {
                 input: entryPath,
@@ -125,6 +131,21 @@ export function createWordPressViteConfig(
                     format: 'iife',
                     entryFileNames: 'edit.js',
                     globals: wordpressExternals,
+
+                    // css(includes tailwind)
+                    // !!!IMPORTANT:
+                    // Use a unified entry point to avoid bundling Tailwind repeatedly for each component.
+                    /*
+                    assetFileNames: (assetInfo) => {
+                        if (assetInfo.name?.endsWith('.css')) {
+                            return 'style-full.css';
+                        }
+
+                        return 'assets/[name][extname]';
+                    },
+                    */
+
+
                 },
             },
         },
@@ -238,7 +259,7 @@ export function createWordPressViewViteConfig(
                 formats: ['iife'],
                 name: 'MakelierView',
                 fileName: () => 'view.js',
-                cssFileName: 'style',
+                cssFileName: 'component-pure',
             },
         },
     };

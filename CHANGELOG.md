@@ -8,6 +8,8 @@
 * feat: convert Makelier attributes to WordPress schema。
 * fix: inject component attributes in WordPress editor builds
 * fix: explicitly define Tailwind CSS source paths.
+* core: optimize shared styles for Gutenberg blocks
+
 
 #### = 1.1.60-alpha (November 18, 2026) =
 
