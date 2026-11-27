@@ -3,7 +3,7 @@ import type { Stage } from './scene';
 import type { ViewKey } from './data';
 
 /**
- * One controller per page. The router creates it when the page's markup is
+ * One controller per page. The pjax layer creates it when the page's markup is
  * in the DOM, calls `enter()` to play the entrance, and `leave()` before the
  * markup is replaced. Everything a controller starts, it must stop in `destroy()`.
  */
@@ -352,17 +352,35 @@ export const createWorks: ViewFactory = (root, ctx) => {
                 stagger: reduceMotion ? 0 : 0.11,
                 delay: reduceMotion ? 0 : 0.15,
             });
-            await wait(reduceMotion ? 0.2 : 0.9);
+
+
+            await wait(reduceMotion ? 0.2 : 1.2);
+
+            /*
+            You can wait for the GSAP animation to fully complete by using `wait`, 
+            with a duration greater than the 0.9-second duration of the Pjax animation.
+            */
+            // await finish(tween);
+
             paused = false;
             void tween;
         },
 
         async leave() {
             paused = true;
+            const below = window.innerHeight * 1.15;
+            const all = risesOf(items);
             const visible = risesOf(onScreen());
-            gsap.killTweensOf(visible);
+            gsap.killTweensOf(all);
+            // The track keeps coasting while the exit plays, so pieces beyond the screen
+            // edges would slide in at y:0 and pop into view. They are off-screen right now,
+            // so drop them out of sight immediately; only the visible ones animate.
+            gsap.set(
+                all.filter((el) => !visible.includes(el)),
+                { y: below }
+            );
             const tween = gsap.to(visible, {
-                y: window.innerHeight * 1.15,
+                y: below,
                 duration: reduceMotion ? 0.2 : 0.75,
                 ease: 'power3.in',
                 stagger: reduceMotion ? 0 : { each: 0.05, from: 'end' },
@@ -473,12 +491,11 @@ export const createAbout: ViewFactory = (root, ctx) => {
         },
 
         async leave() {
+            // Stop the typing where it is. The text already revealed stays as it is
+            // (lines that have not started stay empty), and only then fades out;
+            // forcing the full text here would make it flash in before leaving.
             tweens.forEach((t) => t.kill());
             tweens.length = 0;
-            lives.forEach(({ ok }, i) => {
-                ok.textContent = texts[i];
-                lives[i].noise.textContent = '';
-            });
             const r = ctx.reduce;
             const tween = gsap.to([...lines, ...(cursor ? [cursor] : [])], {
                 autoAlpha: 0,

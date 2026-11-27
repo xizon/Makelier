@@ -42,10 +42,6 @@ next-env.d.ts
 lerna-debug.log
 node_modules
 
-#lib
-lib/
-publish/
-
 
 # Generated template ZIP packages
 tools/template-releases/packages/

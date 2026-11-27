@@ -1,48 +1,28 @@
 import { gsap } from 'gsap';
 import { viewFromPath, type ViewKey } from './_scripts/data';
-import { createRouter } from './_scripts/router';
+import { createPjax } from '../../lib/pjax'; // or '@/lib/pjax' if your alias points at src/
 import { FACTORIES, type Ctx } from './_scripts/view-controllers';
 import type { Stage } from './_scripts/scene';
 
-const FONT_URL =
-    'https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700' +
-    '&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap';
 
 let booted = false;
-
-function loadFonts() {
-    if (document.querySelector('link[data-mkl-fonts]')) return;
-    const pre = (href: string, cross: boolean) => {
-        const l = document.createElement('link');
-        l.rel = 'preconnect';
-        l.href = href;
-        if (cross) l.crossOrigin = '';
-        document.head.appendChild(l);
-    };
-    pre('https://fonts.googleapis.com', false);
-    pre('https://fonts.gstatic.com', true);
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = FONT_URL;
-    css.dataset.mklFonts = '';
-    document.head.appendChild(css);
-}
 
 const sleep = (ms: number) => new Promise<void>((res) => window.setTimeout(res, ms));
 
 /**
  * Mounted once per full page load. Everything after that happens
  * inside this one shell, so it must survive page changes.
+ *
+ * Page switching itself lives in `lib/pjax`; this file only wires the shell's
+ * own concerns (fonts, WebGL stage, nav marker) to it.
  */
 export function mount(element: HTMLElement | null): (() => void) | void {
     // The system may also hand us inner elements; only the shell root counts.
     if (!element || !element.classList.contains('mkl-app') || booted) return;
     booted = true;
 
-    // Detect whether the user's operating system has the "Reduce Motion" setting enabled.
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    //
     const host = element.querySelector<HTMLElement>('.mkl-main')!;
     const stageHost = element.querySelector<HTMLElement>('.mkl-stage')!;
     const viewEl = host.querySelector<HTMLElement>('.mkl-view[data-view]')!;
@@ -50,8 +30,6 @@ export function mount(element: HTMLElement | null): (() => void) | void {
     const mark = element.querySelector<HTMLElement>('.mkl-nav__mark')!;
 
     let currentKey: ViewKey = (viewEl.dataset.view as ViewKey) || viewFromPath(location.pathname) || 'home';
-
-    loadFonts();
 
     // ---- stage (lazy: three.js is a separate chunk) ------------------------
     let stage: Stage | null = null;
@@ -74,7 +52,7 @@ export function mount(element: HTMLElement | null): (() => void) | void {
         whenStage: () => Promise.race([stagePromise, sleep(2400).then(() => null)]),
     };
 
-    // ---- nav marker ---------------------------------------------------------
+    // ---- nav marker + active link (shell concerns, not pjax concerns) -----------
     const placeMark = (animate: boolean) => {
         const link = nav.querySelector<HTMLElement>(`.mkl-nav__link[data-key="${currentKey}"]`);
         if (!link) return;
@@ -85,39 +63,54 @@ export function mount(element: HTMLElement | null): (() => void) | void {
     const onResize = () => placeMark(false);
     window.addEventListener('resize', onResize);
 
-    // ---- first view ------------------------------------------------------------
-    const ctl = FACTORIES[currentKey](viewEl, ctx);
-    const router = createRouter({
-        app: element,
-        host,
-        ctx,
-        factories: FACTORIES,
-        initial: { key: currentKey, el: viewEl, ctl },
-        onChange: (key) => {
-            currentKey = key;
+    const setActive = (key: ViewKey) => {
+        element.querySelectorAll<HTMLAnchorElement>('.mkl-nav__link').forEach((a) => {
+            const on = a.dataset.key === key;
+            a.classList.toggle('is-active', on);
+            if (on) a.setAttribute('aria-current', 'page');
+            else a.removeAttribute('aria-current');
+        });
+    };
+
+    // ---- pjax ----------------------------------------------------------------------
+    const pjax = createPjax<ViewKey>({
+        container: host,
+        root: element,
+        viewSelector: '.mkl-view[data-view]',
+        linkSelector: 'a[data-pjax]',
+        match: (url) => viewFromPath(url.pathname), // "works.html" / "blog--works.html" -> 'works', else normal navigation
+        initialKey: currentKey,
+        scroll: 'container',
+        busyClass: 'is-changing',
+
+        // one controller per view (animations / interactions live there)
+        mount: (key, el) => FACTORIES[key](el, ctx),
+
+        // new view is in the DOM, its controller not yet created
+        onSwap: ({ to, el }) => {
+            el.style.visibility = 'hidden'; // the controller reveals it in enter()
+            currentKey = to.key;
+            element.dataset.view = to.key;
+            setActive(to.key);
             placeMark(true);
-            stage?.setView(key);
-            if (!stage) void stagePromise;
+            stage?.setView(to.key);
         },
     });
-    router.start();
 
     placeMark(false);
-    // Fonts change link widths; re-measure once they are in.
+    // Fonts change link widths; re-measure once they are in, then play the first entrance.
     const fonts = (document as Document & { fonts?: FontFaceSet }).fonts;
     const ready = fonts ? Promise.race([fonts.ready, sleep(1500)]) : sleep(0);
 
-    ready.then(() => {
-        placeMark(false);
-        // The controller sets its own start state synchronously, so the
-        // page is never shown half-built.
-        void ctl.enter();
-        element.removeAttribute('data-boot');
-    });
+    void pjax
+        .start({
+            waitFor: ready.then(() => placeMark(false)),
+        })
+        .then(() => element.removeAttribute('data-boot'));
 
     return () => {
         window.removeEventListener('resize', onResize);
-        router.destroy();
+        pjax.destroy();
         stage?.destroy();
         booted = false;
     };

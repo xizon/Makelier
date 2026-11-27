@@ -628,10 +628,12 @@ export async function createStage(host: HTMLElement, reduce: boolean): Promise<S
 
     const place = (s: Shard, t: number) => {
         const fl = amp;
+        // The home position only. The "far" burst offset is added after the gather
+        // step (see the frame loop), so shards fly out from wherever they currently are.
         s.pos.set(
-            s.u * hw * 0.95 + Math.sin(t * s.fx + s.ph) * 0.24 * fl + s.dir.x * s.far * FAR,
-            s.v * hh * 0.92 + Math.cos(t * s.fy + s.ph * 1.3) * 0.28 * fl + s.dir.y * s.far * FAR,
-            s.z + Math.sin(t * s.fz + s.ph * 0.7) * 0.3 * fl + s.dir.z * s.far * FAR
+            s.u * hw * 0.95 + Math.sin(t * s.fx + s.ph) * 0.24 * fl,
+            s.v * hh * 0.92 + Math.cos(t * s.fy + s.ph * 1.3) * 0.28 * fl,
+            s.z + Math.sin(t * s.fz + s.ph * 0.7) * 0.3 * fl
         );
     };
 
@@ -675,6 +677,12 @@ export async function createStage(host: HTMLElement, reduce: boolean): Promise<S
                     );
                     s.pos.lerp(target, s.att);
                 }
+            }
+
+            // 1b. burst offset: applied on top of the current position (home or gathered),
+            // so leaving the page scatters the shards from where they are right now.
+            for (const s of shards) {
+                if (s.far > 0.0001) s.pos.addScaledVector(s.dir, s.far * FAR);
             }
 
             // 2. orientation + scale
@@ -767,10 +775,14 @@ export async function createStage(host: HTMLElement, reduce: boolean): Promise<S
         hideShards() {
             if (!showing) return Promise.resolve();
             hiding = true;
-            gsap.killTweensOf(shards);
-            resetGather();
+            // Only stop the "far" tweens. Gather / release / flip tweens are left alone, so a
+            // half-finished gather keeps moving instead of freezing or snapping back home.
+            gsap.killTweensOf(shards, 'far');
             return new Promise<void>((resolve) => {
-                for (const s of shards) randomUnit(s.dir);
+                for (const s of shards) {
+                    // Keep the direction of a piece that is still flying in, or it would jump.
+                    if (s.far < 0.001) randomUnit(s.dir);
+                }
                 gsap.to(shards, {
                     far: 1,
                     duration: reduce ? 0.25 : 0.85,
@@ -780,6 +792,8 @@ export async function createStage(host: HTMLElement, reduce: boolean): Promise<S
                         showing = false;
                         hiding = false;
                         for (const s of shards) s.mesh.visible = false;
+                        // Everything is out of sight now: safe to clear the gather state.
+                        resetGather();
                         resolve();
                     },
                 });

@@ -6,7 +6,7 @@
   "components": [
     {
       "name": "sample-page-3-main",
-      "description": "Site shell for sample page 3: WebGL stage, navigation, footer, and a pjax-style router that swaps page views.",
+      "description": "Site shell for sample page 3: WebGL stage, navigation, footer, and a pjax module (src/lib/pjax) that swaps page views.",
       "type": "component"
     }
   ]

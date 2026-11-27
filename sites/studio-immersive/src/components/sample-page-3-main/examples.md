@@ -6,7 +6,7 @@ The site shell for a single-page, pjax-style site. One component holds everythin
 
 - a WebGL stage (Three.js): shader backdrop and the glass shards on Home
 - the navigation, footer and small SVG decorations
-- a tiny router that fetches the other page files (for example `./works.html`) and swaps only the page view
+- a standalone pjax module (`src/lib/pjax`) that fetches the other page files (for example `./works.html`) and swaps only the page view
 - one controller per page view (Home, Works, About, Contact) with enter and leave animations
 
 
@@ -104,8 +104,8 @@ Add a page: create `src/pages/<name>`, add a matching item to the `nav` prop on 
 | `template.tsx` | Shell markup (stage, bar, nav, footer, decorations). |
 | `_scripts/view-templates.tsx` | Markup of the four page views. Renders content passed from props. |
 | `_scripts/data.ts` | View keys, prop types, and the path-to-view helper. Contains no copy. |
-| `controller.ts` | Mounts once: fonts, stage, nav marker, router. |
-| `_scripts/router.ts` | pjax: fetch, swap, history, fallback to normal navigation. |
+| `controller.ts` | Mounts once: fonts, stage, nav marker, and wires `lib/pjax` to the view controllers. |
+| `../../lib/pjax/index.ts` | Standalone pjax (fetch, swap, history, fallback to normal navigation). See `lib/pjax/README.md`. |
 | `_scripts/view-controllers.ts` | Enter and leave choreography per view. |
 | `_scripts/scene.ts` | Three.js stage (lazy-loaded chunk). |
 | `_scripts/shapes.ts` | Gear, hammer, skull, book and bolt silhouettes. |

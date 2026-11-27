@@ -3,7 +3,7 @@ import type { ViewContent, ViewKey } from './data';
 /**
  * Markup for each page's content.
  * The shell (template.tsx) puts exactly one of these inside <main>.
- * The router later reads `.mkl-view` out of the fetched HTML and swaps it in.
+ * pjax later reads `.mkl-view` out of the fetched HTML and swaps it in.
  *
  * All copy comes from `content`; nothing is written here. Elements the view
  * controllers look up (hero title, works track, contact title) are always
