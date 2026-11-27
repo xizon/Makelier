@@ -1,0 +1,1 @@
+{ "name": "faq-accordion", "type": "component", "version": "1.0.0", "description": "Two-column FAQ with a big rotated heading and a single-open accordion that animates height with a CSS grid-rows transition.", "dependencies": {}, "assets": [] }

@@ -1,0 +1,19 @@
+{
+    "name": "home",
+    "version": "1.0.0",
+    "type": "page",
+    "output": "home.html",
+    "bodyClass": "mkl-page mkl-product-story",
+    "seo": {
+        "lang": "en-US",
+        "title": "Home",
+        "description": "Immersive smooth-scrolling narrative pre-order experience with interactive 360 3D skateboard showcase.",
+        "keywords": [],
+        "canonical": ""
+    },
+    "entry": {
+        "template": "./index.tsx",
+        "client": "./index.tsx",
+        "styles": "./style.css"
+    }
+}

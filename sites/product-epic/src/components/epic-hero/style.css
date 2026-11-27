@@ -1,0 +1,124 @@
+.hero {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero .latin {
+  margin-top: 11vh;
+  font-family: var(--f-lat);
+  font-style: italic;
+  font-size: clamp(12px, 1.2vw, 16px);
+  letter-spacing: 0.55em;
+  color: var(--gold);
+  padding-left: 0.55em;
+  opacity: 0;
+  transform: translateY(16px);
+  text-align: center;
+}
+
+.hero .title {
+  margin-top: 2.4vh;
+  text-align: center;
+  line-height: 0.95;
+}
+
+.hero .t1,
+.hero .t2 {
+  display: block;
+  font-family: var(--f-cin);
+  font-weight: 900;
+}
+
+.hero .t1 {
+  font-size: clamp(3.2rem, 9.4vw, 9.6rem);
+  letter-spacing: 0.06em;
+  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.6);
+}
+
+.hero .t2 {
+  margin-top: 1.6vh;
+  font-size: clamp(1rem, 2.5vw, 2.1rem);
+  color: var(--gold);
+  letter-spacing: 1.05em;
+  padding-left: 1.05em;
+  font-weight: 700;
+}
+
+.hero-foot {
+  position: absolute;
+  bottom: 12vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-sub {
+  font-size: clamp(15px, 1.5vw, 19px);
+  letter-spacing: 0.65em;
+  padding-left: 0.65em;
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+
+.hero-spec {
+  font-family: var(--f-cin);
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  color: var(--marble-dim);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 3.4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+}
+
+.scroll-hint span {
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--marble-dim);
+  padding-left: 0.5em;
+}
+
+.scroll-hint .hint-line {
+  position: relative;
+  width: 1px;
+  height: 42px;
+  background: rgba(201, 162, 39, 0.25);
+  overflow: hidden;
+}
+
+.scroll-hint .hint-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -12px;
+  width: 1px;
+  height: 12px;
+  background: var(--gold2);
+  animation: hint 1.8s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+
+@keyframes hint {
+  to {
+    top: 46px;
+  }
+}
+
+@media (max-width: 820px) {
+  .hero .t2 {
+    letter-spacing: 0.7em;
+    padding-left: 0.7em;
+  }
+}

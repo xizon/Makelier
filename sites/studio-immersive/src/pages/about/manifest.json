@@ -1,0 +1,19 @@
+{
+    "name": "about",
+    "version": "1.0.0",
+    "type": "page",
+    "output": "about.html",
+    "bodyClass": "mkl-page mkl-page--about",
+    "seo": {
+        "lang": "en-US",
+        "title": "About",
+        "description": "About page.",
+        "keywords": [],
+        "canonical": ""
+    },
+    "entry": {
+        "template": "./index.tsx",
+        "client": "./index.tsx",
+        "styles": "./style.css"
+    }
+}

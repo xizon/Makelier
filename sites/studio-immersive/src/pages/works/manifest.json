@@ -1,0 +1,19 @@
+{
+    "name": "works",
+    "version": "1.0.0",
+    "type": "page",
+    "output": "works.html",
+    "bodyClass": "mkl-page mkl-page--works",
+    "seo": {
+        "lang": "en-US",
+        "title": "Works",
+        "description": "Works page.",
+        "keywords": [],
+        "canonical": ""
+    },
+    "entry": {
+        "template": "./index.tsx",
+        "client": "./index.tsx",
+        "styles": "./style.css"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "studio-immersive",
+    "version": "1.0.0",
+    "lang": "en-US",
+    "title": "Immersive Studio",
+    "description": "An immersive creative studio website template featuring 3D visuals, interactive animations, and scroll-driven experiences.",
+    "author": {
+        "name": "UIUX Lab",
+        "website": "https://uiux.cc",
+        "email": "uiuxlab@gmail.com"
+    },
+    "template": "./site.html",
+    "paths": {
+        "src": "./src",
+        "public": "./public",
+        "dist": "./dist"
+    },
+    "entries": {
+        "pages": "./src/pages",
+        "components": "./src/components",
+        "styles": "./src/styles"
+    }
+}

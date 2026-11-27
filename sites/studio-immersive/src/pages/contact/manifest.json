@@ -1,0 +1,19 @@
+{
+    "name": "contact",
+    "version": "1.0.0",
+    "type": "page",
+    "output": "contact.html",
+    "bodyClass": "mkl-page mkl-page--contact",
+    "seo": {
+        "lang": "en-US",
+        "title": "Contact",
+        "description": "Contact page.",
+        "keywords": [],
+        "canonical": ""
+    },
+    "entry": {
+        "template": "./index.tsx",
+        "client": "./index.tsx",
+        "styles": "./style.css"
+    }
+}

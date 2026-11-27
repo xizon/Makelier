@@ -1,0 +1,12 @@
+{
+    "name": "portfolio-modern",
+    "private": true,
+    "version": "1.0.0",
+    "dependencies": {
+        "gsap": "^3.15.1"
+    },
+    "build": {
+        "externals": {}
+    },
+    "x-build-externals-description": "To exclude dependencies from the bundle, add them to build.externals and specify their global variable names."
+}

@@ -1,0 +1,11 @@
+{
+    "name": "metrics-counter",
+    "slug": "metrics-counter",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Animated count-up and scale-pop telemetry counters for key deck metrics.",
+    "dependencies": {
+        "gsap": "^3.15.1"
+    },
+    "assets": []
+}

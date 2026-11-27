@@ -1,0 +1,9 @@
+{
+    "name": "spec-accordion",
+    "slug": "spec-accordion",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Smooth expand/collapse accordion for technical specs and pre-order FAQs.",
+    "dependencies": {},
+    "assets": []
+}

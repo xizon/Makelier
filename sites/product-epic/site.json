@@ -1,0 +1,23 @@
+{
+    "name": "product-epic",
+    "version": "1.0.0",
+    "lang": "en-US",
+    "title": "Epic Product",
+    "description": "Eye of the Empire: A Creative Design.",
+    "author": {
+        "name": "UIUX Lab",
+        "website": "https://uiux.cc",
+        "email": "uiuxlab@gmail.com"
+    },
+    "template": "./site.html",
+    "paths": {
+        "src": "./src",
+        "public": "./public",
+        "dist": "./dist"
+    },
+    "entries": {
+        "pages": "./src/pages",
+        "components": "./src/components",
+        "styles": "./src/styles"
+    }
+}

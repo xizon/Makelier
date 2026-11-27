@@ -1,0 +1,17 @@
+
+{
+    "apiVersion": 3,
+    "name": "makelier/pricing-table",
+    "title": "Makelier Pricing Table",
+    "category": "widgets",
+    "description": "Pricing table rendered by Makelier.",
+    "editorScript": "file:./index.js",
+    "style": "file:./style.css",
+    "viewScript": "file:./view.js",
+    "attributes": {
+        "eyebrow": {
+            "type": "string",
+            "default": "Pricing"
+        }
+    }
+}

@@ -1,0 +1,1 @@
+console.log('[Makelier] Pricing Table view.js loaded');

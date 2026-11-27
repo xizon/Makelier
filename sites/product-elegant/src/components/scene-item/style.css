@@ -1,0 +1,9 @@
+
+.mkl-scene-item {
+    position: sticky;
+    top: 0;
+
+    .mkl-scene-item__panel {
+        position: relative;
+    }
+}

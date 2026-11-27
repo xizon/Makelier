@@ -1,0 +1,89 @@
+.mkl-preorder-card {
+    padding: 32px;
+    border: 2px solid var(--mkl-bone);
+    border-radius: 6px;
+    background: #121214;
+    box-shadow: 10px 10px 0 var(--mkl-acid);
+
+    .mkl-preorder-card__label {
+        margin: 0 0 8px;
+        font: 11px var(--mkl-mono);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mkl-hot);
+    }
+
+    .mkl-preorder-card__name {
+        margin: 0;
+        font: 400 clamp(48px, 6vw, 80px)/0.95 var(--mkl-display);
+    }
+
+    .mkl-preorder-card__price {
+        margin: 18px 0 0;
+        font: 400 56px/1 var(--mkl-display);
+        color: var(--mkl-acid);
+    }
+
+    .mkl-preorder-card__fin {
+        margin: 4px 0 20px;
+        font-size: 13px;
+        color: #8a877f;
+    }
+
+    .mkl-preorder-card__button {
+        width: 100%;
+        padding: 16px;
+        background: var(--mkl-hot);
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        font: 400 22px var(--mkl-display);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--mkl-ink);
+        transition: transform 0.15s, background 0.2s;
+    }
+
+    .mkl-preorder-card__button:hover {
+        transform: translate(-2px, -2px);
+    }
+
+    .mkl-preorder-card__button [data-label-held] {
+        display: none;
+    }
+
+    &[data-held] .mkl-preorder-card__button {
+        background: var(--mkl-acid);
+    }
+
+    &[data-held] .mkl-preorder-card__button [data-label-idle] {
+        display: none;
+    }
+
+    &[data-held] .mkl-preorder-card__button [data-label-held] {
+        display: inline;
+    }
+
+    .mkl-preorder-card__note {
+        display: none;
+        margin: 14px 0 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #a8a49b;
+    }
+
+    &[data-held] .mkl-preorder-card__note {
+        display: block;
+    }
+
+    .mkl-preorder-card__perks {
+        margin: 22px 0 0;
+        padding: 18px 0 0;
+        border-top: 1px solid #ffffff1f;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        font-size: 14px;
+        color: #cfcac0;
+    }
+}

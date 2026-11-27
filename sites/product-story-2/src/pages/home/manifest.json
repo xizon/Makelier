@@ -1,0 +1,11 @@
+{
+    "name": "home",
+    "type": "page",
+    "version": "1.0.0",
+    "bodyClass": "mkl-home",
+    "seo": {
+        "title": "Home",
+        "description": "Immersive smooth-scrolling experience.",
+        "keywords": []
+    }
+}

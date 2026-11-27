@@ -1,0 +1,15 @@
+{
+  "name": "epic-stage",
+  "title": "Epic Picture-in-Picture Stage",
+  "category": "interactive-stage",
+  "entry": "./index.ts",
+  "template": "./template.tsx",
+  "style": "./style.css",
+  "controller": "./controller.ts",
+  "scriptsDir": "./_scripts",
+  "exports": [
+    "EpicStage",
+    "mount",
+    "manifest"
+  ]
+}

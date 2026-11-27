@@ -1,0 +1,22 @@
+.mkl-accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mkl-accordion-inner {
+    overflow: hidden;
+}
+
+.mkl-accordion-item.is-open .mkl-accordion-panel {
+    grid-template-rows: 1fr;
+}
+
+.mkl-accordion-icon {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.mkl-accordion-item.is-open .mkl-accordion-icon {
+    transform: rotate(45deg);
+    background-color: rgba(212, 255, 0, 0.15);
+}

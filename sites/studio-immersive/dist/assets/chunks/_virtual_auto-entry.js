@@ -1,0 +1,1 @@
+import{r as e}from"./sample-page-3-main.js";var t;function n(){t||=e()}document.readyState===`loading`?document.addEventListener(`DOMContentLoaded`,n,{once:!0}):n();

@@ -1,0 +1,62 @@
+@import "tailwindcss" prefix(mkl);
+
+/* Make sure utilities used inside pages / components are always picked up. */
+@source "../pages";
+@source "../components";
+
+@layer base {
+    :root {
+        --mkl-accent: #d4ff00;
+        --mkl-bg: #0a0a0c;
+        --mkl-surface: #141418;
+        --mkl-border: rgba(255, 255, 255, 0.1);
+        --mkl-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --mkl-font-display: Georgia, serif;
+        --mkl-font-body: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --mkl-font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    html {
+        background-color: var(--mkl-bg);
+        color: #f4f4f6;
+        font-family: var(--mkl-font-body);
+        letter-spacing: -0.01em;
+        scroll-behavior: auto;
+    }
+
+    body {
+        margin: 0;
+        overflow-x: hidden;
+        background-color: var(--mkl-bg);
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    h1, h2, h3 {
+        font-family: var(--mkl-font-display);
+        letter-spacing: 0.02em;
+    }
+}
+
+.mkl-street-tag {
+    font-family: var(--mkl-font-display);
+    letter-spacing: 0.03em;
+}
+
+@keyframes mkl-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.mkl-type-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background-color: var(--mkl-accent);
+    margin-left: 4px;
+    vertical-align: text-bottom;
+    animation: mkl-blink 0.9s infinite;
+}
+
+.mkl-rhythm-curve {
+    transition: transform 0.9s var(--mkl-ease-out-expo), opacity 0.9s var(--mkl-ease-out-expo);
+}

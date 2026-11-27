@@ -1,0 +1,54 @@
+{
+    "version": 1,
+    "updatedAt": "2026-11-26T16:51:57.714Z",
+    "templates": [
+        {
+            "name": "portfolio-modern",
+            "description": "Makelier site template: portfolio-modern",
+            "downloadUrl": "https://github.com/xizon/makelier/releases/download/templates-latest/portfolio-modern.zip",
+            "checksum": "63c3da38f8dd80c33d48b1ce7caa9bb361a86eafa2b90935f5de7f5e4161ced9",
+            "size": 59973,
+            "updatedAt": "2026-11-26T16:51:57.714Z"
+        },
+        {
+            "name": "product-elegant",
+            "description": "Makelier site template: product-elegant",
+            "downloadUrl": "https://github.com/xizon/makelier/releases/download/templates-latest/product-elegant.zip",
+            "checksum": "7d73dc628b031b262562284707be5972b9737717c0160cbe183ce75db4d62fac",
+            "size": 248839,
+            "updatedAt": "2026-11-26T16:51:57.714Z"
+        },
+        {
+            "name": "product-epic",
+            "description": "Makelier site template: product-epic",
+            "downloadUrl": "https://github.com/xizon/makelier/releases/download/templates-latest/product-epic.zip",
+            "checksum": "b8071944cfbde63c80b21b49a04b9c6b673dddd13cbfcfcd259c28ccc927d583",
+            "size": 247691,
+            "updatedAt": "2026-11-26T16:51:57.714Z"
+        },
+        {
+            "name": "product-story-1",
+            "description": "Makelier site template: product-story-1",
+            "downloadUrl": "https://github.com/xizon/makelier/releases/download/templates-latest/product-story-1.zip",
+            "checksum": "e123040423037935a45c6842f6bcc03dbaf4ca045f19d4a57add422bae30933a",
+            "size": 278830,
+            "updatedAt": "2026-11-26T16:51:57.714Z"
+        },
+        {
+            "name": "product-story-2",
+            "description": "Makelier site template: product-story-2",
+            "downloadUrl": "https://github.com/xizon/makelier/releases/download/templates-latest/product-story-2.zip",
+            "checksum": "659217755bbdfeabbe1822bbbed96925d65688605207973d8c1df0eba5ec0990",
+            "size": 628389,
+            "updatedAt": "2026-11-26T16:51:57.714Z"
+        },
+        {
+            "name": "studio-immersive",
+            "description": "Makelier site template: studio-immersive",
+            "downloadUrl": "https://github.com/xizon/makelier/releases/download/templates-latest/studio-immersive.zip",
+            "checksum": "bbc0c0ef7b689d52d6fafb57e39fae6604d029609fd3ecafdc2fe145c61ec5d7",
+            "size": 207203,
+            "updatedAt": "2026-11-26T16:51:57.714Z"
+        }
+    ]
+}

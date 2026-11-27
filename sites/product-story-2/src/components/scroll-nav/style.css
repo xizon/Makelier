@@ -1,0 +1,107 @@
+/* Lenis integration (required by the library) */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.mkl-scroll-nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    padding: 16px 0 28px;
+    background: linear-gradient(#0b0b0cf2, #0b0b0c00);
+    font-family: var(--mkl-mono);
+
+    .mkl-scroll-nav__logo {
+        font: 400 28px/1 var(--mkl-display);
+        letter-spacing: 0.06em;
+        color: var(--mkl-bone);
+        text-decoration: none;
+        transform: rotate(-4deg);
+    }
+
+    .mkl-scroll-nav__list {
+        display: flex;
+        gap: 14px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .mkl-scroll-nav__link {
+        position: relative;
+        display: block;
+        width: clamp(40px, 8vw, 96px);
+        padding-top: 10px;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        color: #8a877f;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #3a3a3e;
+        }
+
+        &[data-active] {
+            color: var(--mkl-bone);
+        }
+    }
+
+    .mkl-scroll-nav__fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--mkl-acid);
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+
+    .mkl-scroll-nav__cta {
+        padding: 8px 18px;
+        border: 2px solid var(--mkl-acid);
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--mkl-acid);
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+
+        &:hover {
+            background: var(--mkl-acid);
+            color: var(--mkl-ink);
+        }
+    }
+
+    @media (max-width: 900px) {
+        padding: 12px 0 22px;
+
+        .mkl-scroll-nav__label {
+            display: none;
+        }
+
+        .mkl-scroll-nav__link {
+            width: 28px;
+        }
+    }
+}

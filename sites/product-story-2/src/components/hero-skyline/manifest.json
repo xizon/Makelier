@@ -1,0 +1,1 @@
+{ "name": "hero-skyline", "type": "component", "version": "1.0.0", "description": "Cold-open hero: giant title, skateboard graphic and parallax skyline layers that rise to cover the board on scroll, with a typewriter caption.", "dependencies": { "gsap": "^3.15.1" }, "assets": [] }

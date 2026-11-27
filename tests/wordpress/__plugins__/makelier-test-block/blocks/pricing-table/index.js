@@ -1,0 +1,1 @@
+(function(e,t){(0,e.registerBlockType)(`makelier/pricing-table`,{edit(){return(0,t.createElement)(`div`,{className:`makelier-test-editor`},`Makelier Pricing Table Editor Preview`)},save(){return(0,t.createElement)(`div`,{className:`makelier-test-block`},`Makelier Pricing Table Test`)}})})(wp.blocks,wp.element);

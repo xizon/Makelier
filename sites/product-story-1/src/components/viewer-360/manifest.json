@@ -1,0 +1,11 @@
+{
+    "name": "viewer-360",
+    "slug": "viewer-360",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Interactive 360-degree Three.js 3D skateboard showcase with drag orbit, auto-spin, and camera presets.",
+    "dependencies": {
+        "three": "^0.177.0"
+    },
+    "assets": []
+}

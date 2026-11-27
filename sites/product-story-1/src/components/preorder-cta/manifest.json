@@ -1,0 +1,9 @@
+{
+    "name": "preorder-cta",
+    "slug": "preorder-cta",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Limited edition deck width selector and pre-order reservation module.",
+    "dependencies": {},
+    "assets": []
+}

@@ -1,0 +1,23 @@
+{
+    "name": "product-elegant",
+    "version": "1.0.0",
+    "lang": "en-US",
+    "title": "Elegant Product",
+    "description": "An elegant product website template with refined layouts and sophisticated visual details.",
+    "author": {
+        "name": "UIUX Lab",
+        "website": "https://uiux.cc",
+        "email": "uiuxlab@gmail.com"
+    },
+    "template": "./site.html",
+    "paths": {
+        "src": "./src",
+        "public": "./public",
+        "dist": "./dist"
+    },
+    "entries": {
+        "pages": "./src/pages",
+        "components": "./src/components",
+        "styles": "./src/styles"
+    }
+}

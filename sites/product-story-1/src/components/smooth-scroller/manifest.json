@@ -1,0 +1,9 @@
+{
+    "name": "smooth-scroller",
+    "slug": "smooth-scroller",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Damped inertial smooth scrolling controller.",
+    "dependencies": {},
+    "assets": []
+}

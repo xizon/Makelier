@@ -1,0 +1,172 @@
+.mkl-hero-skyline {
+    min-height: 100vh;
+    background: var(--mkl-ink);
+
+    .mkl-hero-skyline__sky {
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 78% 30%, #ff3d2e55, transparent 42%),
+            radial-gradient(#ffffff14 1px, transparent 1.4px) 0 0 / 7px 7px,
+            linear-gradient(#17120f, #0b0b0c 70%);
+    }
+
+    .mkl-hero-skyline__layer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        will-change: transform;
+    }
+
+    .mkl-hero-skyline__layer--far {
+        height: 42vh;
+        fill: #1d1a18;
+        bottom: 14vh;
+    }
+
+    .mkl-hero-skyline__layer--near {
+        height: 36vh;
+        fill: var(--mkl-ink);
+        z-index: 3;
+    }
+
+    .mkl-hero-skyline__board {
+        position: absolute;
+        z-index: 2;
+        right: max(6vw, calc((100% - 1600px) / 2 + 6vw));
+        bottom: 18vh;
+        width: min(52vw, 640px);
+        will-change: transform;
+        filter: drop-shadow(0 24px 30px #000a);
+        transform: rotate(-6deg);
+    }
+
+    .mkl-hero-skyline__board img {
+        width: 100%;
+        display: block;
+    }
+
+    .mkl-hero-skyline__deck {
+        fill: var(--mkl-acid);
+    }
+
+    .mkl-hero-skyline__stripe {
+        fill: none;
+        stroke: var(--mkl-ink);
+        stroke-width: 5;
+        stroke-dasharray: 14 10;
+    }
+
+    .mkl-hero-skyline__truck {
+        fill: #8a877f;
+    }
+
+    .mkl-hero-skyline__wheel {
+        fill: var(--mkl-bone);
+        stroke: var(--mkl-ink);
+        stroke-width: 6;
+    }
+
+    .mkl-hero-skyline__stage {
+        z-index: 4;
+        pointer-events: none;
+    }
+
+    .mkl-hero-skyline__copy {
+        position: absolute;
+        left: clamp(20px, 6vw, 96px);
+        top: 26vh;
+        max-width: 560px;
+    }
+
+    .mkl-hero-skyline__kicker {
+        margin: 0 0 8px;
+        font: 12px var(--mkl-mono);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--mkl-hot);
+    }
+
+    .mkl-hero-skyline__title {
+        margin: 0;
+        font: 400 clamp(88px, 17vw, 260px)/0.86 var(--mkl-display);
+        text-transform: uppercase;
+        color: var(--mkl-bone);
+        text-shadow: 6px 6px 0 var(--mkl-hot);
+    }
+
+    .mkl-hero-skyline__tagline {
+        margin: 18px 0 0;
+        font-size: clamp(16px, 1.5vw, 22px);
+        line-height: 1.45;
+        color: #cfcac0;
+    }
+
+    .mkl-hero-skyline__badge {
+        position: absolute;
+        right: clamp(20px, 8vw, 128px);
+        top: 22vh;
+        padding: 10px 16px;
+        background: var(--mkl-hot);
+        color: var(--mkl-ink);
+        font: 400 20px var(--mkl-display);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transform: rotate(8deg);
+    }
+
+    .mkl-hero-skyline__scroll {
+        position: absolute;
+        left: 50%;
+        bottom: 17vh;
+        margin: 0;
+        font: 10px var(--mkl-mono);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #8a877f;
+        transform: translateX(-50%);
+    }
+
+    .mkl-hero-skyline__caption {
+        position: absolute;
+        z-index: 4;
+        left: 0;
+        right: 0;
+        bottom: 6vh;
+        margin: 0;
+        text-align: center;
+        font-size: clamp(18px, 2vw, 26px);
+        min-height: 1.4em;
+    }
+
+    .mkl-hero-skyline__caption::after {
+        content: '';
+        display: inline-block;
+        width: 0.55em;
+        height: 1.05em;
+        margin-left: 6px;
+        vertical-align: -0.15em;
+        background: var(--mkl-acid);
+        animation: mkl-hero-skyline-blink 1s steps(1) infinite;
+    }
+
+    @media (max-width: 800px) {
+        .mkl-hero-skyline__board {
+            width: 90vw;
+            right: 5vw;
+            bottom: 24vh;
+        }
+
+        .mkl-hero-skyline__badge {
+            top: 14vh;
+            right: 20px;
+        }
+    }
+}
+
+@keyframes mkl-hero-skyline-blink {
+    50% {
+        opacity: 0;
+    }
+}

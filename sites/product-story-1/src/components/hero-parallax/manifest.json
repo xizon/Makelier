@@ -1,0 +1,9 @@
+{
+    "name": "hero-parallax",
+    "slug": "hero-parallax",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Hero section with dual-layer parallax terrain masking the deck and typewriter headline.",
+    "dependencies": {},
+    "assets": []
+}

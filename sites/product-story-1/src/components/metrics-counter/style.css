@@ -1,0 +1,4 @@
+.mkl-counter-num {
+    font-variant-numeric: tabular-nums;
+    will-change: transform, opacity;
+}

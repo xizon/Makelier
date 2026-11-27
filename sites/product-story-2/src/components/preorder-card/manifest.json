@@ -1,0 +1,1 @@
+{ "name": "preorder-card", "type": "component", "version": "1.1.0", "description": "Simple preorder card: price, a single Hold button that toggles a held state (label swaps, note appears), and a perks list. No payment, no storage.", "dependencies": {}, "assets": [] }

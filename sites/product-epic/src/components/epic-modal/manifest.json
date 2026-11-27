@@ -1,0 +1,14 @@
+{
+  "name": "epic-modal",
+  "title": "Epic Reservation Modal & Toast",
+  "category": "overlay",
+  "entry": "./index.ts",
+  "template": "./template.tsx",
+  "style": "./style.css",
+  "controller": "./controller.ts",
+  "exports": [
+    "EpicModal",
+    "mount",
+    "manifest"
+  ]
+}

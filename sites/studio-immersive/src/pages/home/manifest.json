@@ -1,0 +1,19 @@
+{
+    "name": "home",
+    "version": "1.0.0",
+    "type": "page",
+    "output": "home.html",
+    "bodyClass": "mkl-page mkl-page--home",
+    "seo": {
+        "lang": "en-US",
+        "title": "Home",
+        "description": "Home page.",
+        "keywords": [],
+        "canonical": ""
+    },
+    "entry": {
+        "template": "./index.tsx",
+        "client": "./index.tsx",
+        "styles": "./style.css"
+    }
+}

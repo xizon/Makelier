@@ -1,0 +1,87 @@
+.mkl-carousel {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+
+    /* Carousel viewport */
+    .mkl-carousel__viewport {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        touch-action: pan-y;
+        cursor: grab;
+        outline-offset: 4px;
+    }
+
+    .mkl-carousel__viewport:active {
+        cursor: grabbing;
+    }
+
+    /* Carousel track */
+    .mkl-carousel__track {
+        display: flex;
+        width: 100%;
+        will-change: transform;
+    }
+
+    .mkl-carousel__track.is-dragging {
+        cursor: grabbing;
+    }
+
+
+    /* Individual slides */
+    .mkl-carousel__slide {
+        position: relative;
+        display: flex;
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 0;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Prevent images from being dragged by the browser */
+    .mkl-carousel__slide img,
+    .mkl-carousel__slide svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        -webkit-user-drag: none;
+    }
+
+    /* Navigation dots */
+    .mkl-carousel__dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .mkl-carousel__dot {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: #b8b8b8;
+        opacity: 1;
+        cursor: pointer;
+        transition:
+            background-color 0.25s ease,
+            transform 0.25s ease;
+    }
+
+    .mkl-carousel__dot.is-active {
+        background: #333;
+        transform: scale(1.25);
+    }
+
+    .mkl-carousel__dot:hover {
+        background: #666;
+    }
+}

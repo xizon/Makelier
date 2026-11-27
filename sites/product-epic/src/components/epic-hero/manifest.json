@@ -1,0 +1,14 @@
+{
+  "name": "epic-hero",
+  "title": "Epic Hero Section",
+  "category": "hero",
+  "entry": "./index.ts",
+  "template": "./template.tsx",
+  "style": "./style.css",
+  "controller": "./controller.ts",
+  "exports": [
+    "EpicHero",
+    "mount",
+    "manifest"
+  ]
+}

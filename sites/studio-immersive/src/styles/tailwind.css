@@ -1,0 +1,12 @@
+@import "tailwindcss" prefix(mkl);
+
+/* Make sure utilities used inside pages / components are always picked up. */
+@source "../pages";
+@source "../components";
+
+@layer base {
+    body {
+        background-color: #111111;
+        font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+    }
+}

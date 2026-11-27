@@ -1,0 +1,5 @@
+.mkl-hero-parallax__board,
+.mkl-hero-parallax__mountain-back,
+.mkl-hero-parallax__mountain-front {
+    will-change: transform;
+}

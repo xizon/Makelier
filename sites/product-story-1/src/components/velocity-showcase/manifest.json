@@ -1,0 +1,9 @@
+{
+    "name": "velocity-showcase",
+    "slug": "velocity-showcase",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Horizontal scroll gallery with scroll-velocity-driven horizontal motion blur and skew.",
+    "dependencies": {},
+    "assets": []
+}

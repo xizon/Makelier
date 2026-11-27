@@ -1,0 +1,8 @@
+{
+    "name": "photo-scatter",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Displays a scattered photo board with up to seven positioned tiles. ",
+    "dependencies": {},
+    "assets": []
+}

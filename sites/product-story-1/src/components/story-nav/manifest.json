@@ -1,0 +1,9 @@
+{
+    "name": "story-nav",
+    "slug": "story-nav",
+    "version": "1.0.0",
+    "type": "component",
+    "description": "Top timeline progress bar and chapter navigation.",
+    "dependencies": {},
+    "assets": []
+}
