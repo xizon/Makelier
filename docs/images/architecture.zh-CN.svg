@@ -205,8 +205,8 @@
   <path d="M145 845 V900" class="exportArrow"/>
 
   <rect x="80" y="900" width="420" height="120" rx="15" class="box react"/>
-  <text x="213" y="936" text-anchor="middle" class="heading">· 支持导出 React App</text>
-  <text x="280" y="966" text-anchor="middle" class="heading">· 支持导出 WordPress Editor Plugin</text>
+  <text x="213" y="936" text-anchor="middle" class="heading">· 支持 React App</text>
+  <text x="280" y="966" text-anchor="middle" class="heading">· 支持 WordPress Editor Plugin</text>
   <text x="202" y="1000" text-anchor="middle" class="body body3">一键批量导出 · 独立使用</text>
 
   <!-- CLI connection: draw LAST so the arrow cannot be covered by the Site container -->
