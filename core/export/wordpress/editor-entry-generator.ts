@@ -109,7 +109,7 @@ import type {
 
 registerBlockType(metadata, {
     edit: createBlockEdit(config as BlockConfig, Template),
-    save: createBlockSave(Template),
+    save: createBlockSave(config as BlockConfig, Template),
 });
 `;
 }

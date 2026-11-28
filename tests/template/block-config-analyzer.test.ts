@@ -251,6 +251,10 @@ describe('analyzeBlockConfig', () => {
 
         expect(result.attributes).toEqual({
             title: { type: 'string' },
+            children: {
+                type: 'html',
+                optional: true,
+            },
         });
     });
 

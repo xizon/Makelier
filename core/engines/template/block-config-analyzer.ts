@@ -434,7 +434,29 @@ export function analyzeBlockConfig(
     for (const property of propsType.getProperties()) {
         const name = property.getName();
 
-        if (name === 'children') continue;
+        // HTML content
+        if (name === 'children') {
+            attributes.children = {
+                type: 'html',
+                ...(property.isOptional() && {
+                    optional: true,
+                }),
+            };
+
+            continue;
+        }
+        /*
+        if (name === 'children') {
+            attributes.children = {
+                type: 'textarea',
+                ...(property.isOptional() && {
+                    optional: true,
+                }),
+            };
+
+            continue;
+        }
+        */
 
         const propertyDeclaration = property.getDeclarations()[0];
 

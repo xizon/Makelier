@@ -268,7 +268,11 @@ describe('analyzeBlockConfig', () => {
                 title: {
                     type: 'string',
                 },
+                children: {
+                    type: 'html',
+                },
             });
+
         });
     });
 });

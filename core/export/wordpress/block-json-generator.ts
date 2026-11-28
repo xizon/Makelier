@@ -20,12 +20,14 @@ import {
 function convertAttributeConfig(
     config: BlockAttributeConfig,
 ) {
+
     const type = Array.isArray(config.type)
         ? 'string'
-        : config.type === 'textarea'
+        : ['textarea', 'html'].includes(config.type)
             ? 'string'
             : config.type;
 
+            
     return {
         type,
         ...(config.enum && {

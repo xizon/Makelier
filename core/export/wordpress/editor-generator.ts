@@ -47,6 +47,39 @@ import renderToString from 'preact-render-to-string';
 
 import type { ComponentType } from 'preact';
 
+/**
+ * Render Template To String
+ */
+function renderTemplateToString(
+    Template: ComponentType<any>,
+    attributes: AttributeValues,
+    config: BlockConfig,
+): string {
+    const childrenConfig = config?.attributes?.children;
+
+    if (
+        childrenConfig?.type !== 'html' ||
+        typeof attributes.children !== 'string'
+    ) {
+        return renderToString(
+            h(Template, attributes),
+        );
+    }
+
+    const marker = 'MAKELIER_HTML_CHILDREN_MARKER';
+
+    const html = renderToString(
+        h(Template, {
+            ...attributes,
+            children: marker,
+        }),
+    );
+
+    return html.replace(
+        marker,
+        attributes.children,
+    );
+}
 
 /**
  * Create a default value from an attribute config.
@@ -63,6 +96,7 @@ function createDefaultValue(
     switch (type) {
         case 'string':
         case 'textarea':
+        case 'html':
             return '';
 
         case 'number':
@@ -278,6 +312,28 @@ export function renderAttributeControl({
                         [name]: nextValue,
                     });
                 },
+            }),
+            name,
+            config,
+            value,
+            setAttributes,
+        );
+    }
+
+
+    // HTML
+    // =========================
+    if (types.includes('html')) {
+        return wrapOptionalControl(
+            createElement(TextareaControl, {
+                label: `${name} (HTML)`,
+                value: typeof value === 'string' ? value : '',
+                onChange: (nextValue: string) => {
+                    setAttributes({
+                        [name]: nextValue,
+                    });
+                },
+                rows: 10,
             }),
             name,
             config,
@@ -546,8 +602,10 @@ export function createBlockEdit(
     }) {
         const blockProps = useBlockProps();
 
-        const html = renderToString(
-            h(Template, attributes),
+        const html = renderTemplateToString(
+            Template,
+            attributes,
+            config,
         );
 
         return createElement(
@@ -588,6 +646,7 @@ export function createBlockEdit(
  * Create the Gutenberg save component for a block.
  */
 export function createBlockSave(
+    config: BlockConfig,
     Template: ComponentType<any>,
 ) {
     return function Save({
@@ -597,8 +656,10 @@ export function createBlockSave(
     }) {
         const blockProps = useBlockProps.save();
 
-        const html = renderToString(
-            h(Template, attributes),
+        const html = renderTemplateToString(
+            Template,
+            attributes,
+            config,
         );
 
         const className = blockProps.className || '';
@@ -624,7 +685,7 @@ export function registerEditorBlock(
         category: 'widgets',
         attributes: {},
         edit: createBlockEdit(config, Template),
-        save: createBlockSave(Template),
+        save: createBlockSave(config, Template),
     };
 
     registerBlockType(name, settings);

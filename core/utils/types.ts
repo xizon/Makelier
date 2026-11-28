@@ -671,6 +671,7 @@ export type BlockAttributeType =
     | 'number'
     | 'boolean'
     | 'textarea'
+    | 'html'
     | 'array'
     | 'object';
 
