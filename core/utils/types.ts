@@ -786,7 +786,27 @@ export type WordPressBlockMetadata = Record<string, unknown>;
  * ------------------------------------
  * For React App
  * ------------------------------------
- */export interface DiscoveredReactPage {
+ * 
+ * 
+ */
+
+
+export interface ExternalLibConfig {
+    fileName: string;
+    ver: string;
+}
+
+export type ExternalLibrary = Record<string, ExternalLibConfig>;
+export type ExternalGlobals = Record<string, string>;
+
+export interface ExternalLibraryList {
+    name: string;
+    fileName: string;
+    ver: string;
+}
+
+
+export interface DiscoveredReactPage {
     slug: string;
     route: string;
     sourceDir: string;

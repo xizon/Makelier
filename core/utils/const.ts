@@ -1,3 +1,8 @@
+import type {
+    ExternalLibrary,
+    ExternalGlobals
+} from './types.ts';
+
 export const DEFAULT_PREFIX = 'mkl';
 export const DEFAULT_SITE = 'product-elegant';
 export const DEFAULT_GSAP_VERSION = '^3.15.1';
@@ -43,53 +48,104 @@ export const PLUGIN_BLOCK_TITLE_PREFIX = 'Makelier ';
 
 
 
-export const EXTERNAL_GLOBALS: Record<string, string> = {
+export const EXTERNAL_GLOBALS: ExternalGlobals = {
     // React
-    react: 'React',
+    'react': 'React',
     'react-dom': 'ReactDOM',
     'react-dom/client': 'ReactDOM',
 
     // Vue
-    vue: 'Vue',
+    'vue': 'Vue',
 
     // Animation
-    gsap: 'gsap',
-    animejs: 'anime',
+    'gsap': 'gsap',
+    'animejs': 'anime',
     'lottie-web': 'lottie',
-    'motion': 'Motion',
 
     // 3D / Graphics
-    three: 'THREE',
+    'three': 'THREE',
     'pixi.js': 'PIXI',
-    babylonjs: 'BABYLON',
-    'matter-js': 'Matter',
-    '@react-three/fiber': 'ReactThreeFiber',
-    '@react-three/drei': 'Drei',
+    'babylonjs': 'BABYLON',
+    'svg.js': 'SVG',
 
     // UI
-    jquery: 'jQuery',
+    'jquery': 'jQuery',
     'swiper': 'Swiper',
     'lucide': 'lucide',
+
 
     // Visualization
     'd3': 'd3',
     'chart.js': 'Chart',
-    echarts: 'echarts',
+    'echarts': 'echarts',
 
     // Utilities
-    dayjs: 'dayjs',
-    lodash: '_',
+    'dayjs': 'dayjs',
+    'lodash': '_',
     'lodash-es': '_',
-    axios: 'axios',
+    'axios': 'axios',
 
     // Browser Utilities
-    prefixfree: 'StyleFix',
-    modernizr: 'Modernizr',
+    'prefixfree': 'StyleFix',
+    'modernizr': 'Modernizr',
 
     // Media
     'video.js': 'videojs',
 
     // Interaction
     'jquery.waitforimages': 'waitForImages',
-    hammerjs: 'Hammer',
+    'hammerjs': 'Hammer',
+};
+
+
+
+export const EXTERNAL_LIB: ExternalLibrary = {
+    // React
+    'react': {fileName: 'react.production.min.js', ver: '19.3.1'},
+    'react-dom': {fileName: 'react-dom.production.min.js', ver: '19.3.1'},
+    'react-dom/client': {fileName: 'react-dom.production.min.js', ver: '19.3.1'},
+
+    // Vue
+    'vue': {fileName: 'vue.global.prod.js', ver: '19.3.1'},
+
+    // Animation
+    'gsap': {fileName: 'gsap.min.js', ver: '3.15.1'},
+    'animejs': {fileName: 'anime.umd.min.js', ver: '4.5.0'},
+    'lottie-web': {fileName: 'lottie.min.js', ver: '5.13.0'},
+
+    // 3D / Graphics
+    'three': {fileName: 'three.min.js', ver: '0.175.0'},
+    'pixi.js': {fileName: 'pixi.min.js', ver: '8.23.0'},
+    'babylonjs': {fileName: 'babylon.min.js', ver: '9.38.0'},
+    'svg.js': {fileName: 'svg.min.js', ver: '3.2.8'},
+
+
+    // UI
+    'jquery': {fileName: 'jquery.min.js', ver: '4.1.0'},
+    'swiper': {fileName: 'swiper-bundle.min.js', ver: '14.5.0'},
+    'lucide': {fileName: 'lucide.min.js', ver: '1.82.0'},
+
+    
+
+    // Visualization
+    'd3': {fileName: 'd3.min.js', ver: '7.9.2'},
+    'chart.js': {fileName: 'chart.min.js', ver: '4.6.2'},
+    'echarts': {fileName: 'echarts.min.js', ver: '6.1.0'},
+
+    // Utilities
+    'dayjs': {fileName: 'dayjs.min.js', ver: '1.11.23'},
+    'lodash': {fileName: 'lodash.min.js', ver: '4.18.1'},
+    'lodash-es': {fileName: 'lodash.min.js', ver: '4.18.1'},
+    'axios': {fileName: 'axios.min.js', ver: '1.21.1'},
+
+    // Browser Utilities
+    'prefixfree': {fileName: 'prefixfree.min.js', ver: '1.0.7'},
+    'modernizr': {fileName: 'modernizr.min.js', ver: '2.8.3'},
+
+    // Media
+    'video.js': {fileName: 'video.min.js', ver: 'xxx8.24.2xxxxx'},
+
+    // Interaction
+    'jquery.waitforimages': {fileName: 'jquery.waitforimages.min.js', ver: '2.4.0'},
+    'hammerjs': {fileName: 'hammer.min.js', ver: '2.0.8'},
 };

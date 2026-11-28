@@ -1,4 +1,3 @@
-
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -7,23 +6,30 @@ import {
     PLUGIN_TITLE,
     PLUGIN_TESTED_UP_TO,
     EXTERNAL_GLOBALS,
+    EXTERNAL_LIB,
 } from '../../utils/const.ts';
+
+import type {
+    ExternalLibraryList
+} from '../../utils/types.ts';
+
 
 /**
  * NOTE: ONLY for organizing and copying the final files.
  */
 
+
 /**
- * Generate external frontend dependency scripts.
+ * Discover external libraries from package.json.
  *
- * Dependencies are discovered from package.json and filtered
- * through EXTERNAL_GLOBALS.
+ * Only dependencies supported by both EXTERNAL_GLOBALS
+ * and EXTERNAL_LIB will be included.
  */
-function generateExternalScriptsPhp(siteRoot: string): string {
+function getExternalLibraries(siteRoot: string): ExternalLibraryList[] {
     const packagePath = path.join(siteRoot, 'package.json');
 
     if (!fs.existsSync(packagePath)) {
-        return '';
+        return [];
     }
 
     const packageJson = JSON.parse(
@@ -32,30 +38,83 @@ function generateExternalScriptsPhp(siteRoot: string): string {
 
     const dependencies = packageJson.dependencies ?? {};
 
-    const matched = Object.entries(dependencies)
-        .filter(([name]) => EXTERNAL_GLOBALS[name]);
+    return Object.keys(dependencies)
+        .filter(name => EXTERNAL_GLOBALS[name] && EXTERNAL_LIB[name])
+        .map((name): ExternalLibraryList => ({
+            name,
+            fileName: EXTERNAL_LIB[name].fileName,
+            ver: EXTERNAL_LIB[name].ver,
+        }));
+}
 
-    if (matched.length === 0) {
+/**
+ * Copy external JavaScript libraries into the plugin.
+ */
+function copyExternalScripts(
+    siteRoot: string,
+    pluginDir: string,
+): void {
+    const libraries = getExternalLibraries(siteRoot);
+
+    if (libraries.length === 0) {
+        return;
+    }
+
+    // Makelier bundled external libraries.
+    const sourceDir = path.resolve(
+        process.cwd(),
+        'tools/externals-lib/js',
+    );
+
+    const outputDir = path.join(
+        pluginDir,
+        'assets',
+        'js',
+    );
+
+    fs.mkdirSync(outputDir, { recursive: true });
+
+    for (const { name, fileName } of libraries) {
+        const sourcePath = path.join(sourceDir, fileName);
+        const outputPath = path.join(outputDir, fileName);
+
+        if (!fs.existsSync(sourcePath)) {
+            throw new Error(
+                `[Makelier] External library "${name}" not found: ${sourcePath}`,
+            );
+        }
+
+        fs.copyFileSync(sourcePath, outputPath);
+    }
+}
+
+/**
+ * Generate external frontend dependency scripts.
+ */
+function generateExternalScriptsPhp(siteRoot: string): string {
+    const libraries = getExternalLibraries(siteRoot);
+
+    if (libraries.length === 0) {
         return '';
     }
 
-    const dependencyInfo = matched
-        .map(([name, version]) => ` * - ${name}: ${version}`)
+    const dependencyInfo = libraries
+        .map(({ name, fileName, ver }) => ` * - ${name}: ${ver} (${fileName})`)
         .join('\n');
 
-    const registerScripts = matched.map(([name, version]) => {
+    const registerScripts = libraries.map(({ name, fileName, ver }) => {
         const handle = `makelier-${name.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
 
         return `    wp_register_script(
         '${handle}',
-        'https://cdn.jsdelivr.net/npm/${name}@${version}/dist/${name}.min.js',
+        plugin_dir_url(__FILE__) . 'assets/js/${fileName}',
         array(),
-        '${version}',
+        '${ver}',
         true
     );`;
     }).join('\n\n');
 
-    const enqueueScripts = matched.map(([name]) => {
+    const enqueueScripts = libraries.map(({ name }) => {
         const handle = `makelier-${name.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
 
         return `    wp_enqueue_script('${handle}');`;
@@ -65,14 +124,10 @@ function generateExternalScriptsPhp(siteRoot: string): string {
 /**
  * External Dependencies
  *
- * Automatically generated from package.json.
+ * Automatically generated from package.json and EXTERNAL_LIB.
  *
  * Dependencies:
 ${dependencyInfo}
- *
- * IMPORTANT:
- * The CDN URLs below are generated automatically and may not be correct
- * for every package. Please verify and adjust the URLs if necessary.
  */
 
 /**
@@ -281,6 +336,9 @@ export function exportWordPressPlugin(siteRoot: string): void {
     fs.mkdirSync(blocksDir, { recursive: true });
 
     const blockCount = copyBlockFiles(sourceDir, blocksDir);
+
+    // Copy external JavaScript libraries.
+    copyExternalScripts(siteRoot, pluginDir);
 
     // Generate the main plugin PHP file.
     fs.writeFileSync(
